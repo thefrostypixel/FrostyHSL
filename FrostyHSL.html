@@ -34,6 +34,11 @@
             *:focus-visible {
                 outline: none;
             }
+            span {
+                position: absolute;
+                margin: 15px 0 0 min(175px, 50vw - 105px);
+                pointer-events: none;
+            }
             #hex {
                 width: 128px;
                 height: 40px;
@@ -45,11 +50,6 @@
             #hex, #nums *, [type=range] {
                 border: 2px solid #FFF;
                 border-radius: 10px;
-            }
-            span {
-                position: absolute;
-                margin: 15px 0 0 min(175px, 50vw - 105px);
-                pointer-events: none;
             }
             button {
                 border: none;
@@ -109,8 +109,8 @@
     </head>
     <body>
         <div id="box">
-            <input id="hex" type="text" aria-label="Hex" oninput="value = value.toUpperCase().replace(/[^0-9A-F]/g, '').substring(0, 6); fromHex();" onblur="if (value.length == 3) {value = value[0].repeat(2) + value[1].repeat(2) + value[2].repeat(2);} else if (value.length < 6) {value = value.padEnd(6, '0');} fromHex();">
             <span>#</span>
+            <input id="hex" type="text" aria-label="Hex" oninput="value = value.toUpperCase().replace(/[^0-9A-F]/g, '').substring(0, 6); fromHex();" onblur="if (value.length == 3) {value = value[0].repeat(2) + value[1].repeat(2) + value[2].repeat(2);} else if (value.length < 6) {value = value.padEnd(6, '0');} fromHex();">
             <button aria-label="Copy" onclick="navigator.clipboard.writeText('#' + document.getElementById('hex').value);">
                 <svg viewBox="0 0 12 14">
                     <path d="M3 2q0 -1 1 -1h6q1 0 1 1v8q0 1 -1 1h-6q-1 0 -1 -1ZM9 11v1q0 1 -1 1h-6q-1 0 -1 -1v-8q0 -1 1 -1h1" fill="#0000" stroke="#FFF"/>

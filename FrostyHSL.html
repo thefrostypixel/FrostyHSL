@@ -24,7 +24,7 @@
                 border-radius: 30px;
                 width: min(500px, 100vw - 60px);
                 padding: 20px;
-                margin: clamp(20px, 50vh - 235px, 200px) auto 20px auto;
+                margin: clamp(10px, 50svh - 235px, 200px) auto 10px auto;
             }
             * {
                 color: #FFF;
@@ -145,21 +145,14 @@
                 }
                 let max = Math.max(rgb.r, rgb.g, rgb.b);
                 let d = max - Math.min(rgb.r, rgb.g, rgb.b);
-                let hsl = {h: Math.round((rgb.r - rgb.g) * 60 / d + 240)};
-                if (max == rgb.r) {
-                    hsl.h = Math.round((rgb.g - rgb.b) * 60 / d + (rgb.g < rgb.b ? 360 : 0));
-                } else if (max == rgb.g) {
-                    hsl.h = Math.round((rgb.b - rgb.r) * 60 / d + 120);
-                }
-                let dist = Infinity;
-                for (let iS = 0; iS < 1; iS += .01) {
-                    for (let iL = 0; iL < 1; iL += .01) {
-                        let rgb2 = hslToRgb(hsl.h, iS, iL);
-                        let dist2 = Math.sqrt((rgb.r - rgb2.r) ** 2 + (rgb.g - rgb2.g) ** 2 + (rgb.b - rgb2.b) ** 2);
-                        if (dist2 < dist) {
-                            hsl.s = Math.round(iS * 100) / 100;
-                            hsl.l = Math.round(iL * 100) / 100;
-                            dist = dist2;
+                let hsl = {h: max == rgb.r ? (rgb.g - rgb.b) * 60 / d + (rgb.g < rgb.b ? 360 : 0) : max == rgb.g ? (rgb.b - rgb.r) * 60 / d + 120 : (rgb.r - rgb.g) * 60 / d + 240, d: Infinity};
+                for (let h of [Math.floor(hsl.h), Math.ceil(hsl.h)]) {
+                    for (let s = 0; s < 1; s += .01) {
+                        for (let l = 0; l < 1; l += .01) {
+                            let rgb2 = hslToRgb(h, s, l);
+                            if ((d = Math.sqrt((rgb.r - rgb2.r) ** 2 + (rgb.g - rgb2.g) ** 2 + (rgb.b - rgb2.b) ** 2)) < hsl.d) {
+                                hsl = {h, s: Math.round(s * 100) / 100, l: Math.round(l * 100) / 100, d};
+                            }
                         }
                     }
                 }

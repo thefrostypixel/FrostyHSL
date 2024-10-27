@@ -1,0 +1,9 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <mask id="0">
+        <circle cx="8" cy="8" r="8" fill="white"/>
+        <path d="M5.5 12.5v-9h5M6 8h4" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </mask>
+    <foreignObject x="0" y="0" width="16" height="16" mask="url(#0)">
+        <div style="width: 16px; height: 16px; background-image: conic-gradient(#DF4E81,#E04F7A,#E15072,#E2516B,#E35263,#E4535C,#E55454,#E0584F,#DB5B4A,#D65E45,#D1613F,#CC653A,#C76835,#C26C30,#BD702B,#B87325,#B37720,#AE7B1B,#A97F16,#A48311,#9F870C,#9A8B08,#958F03,#909301,#899503,#829805,#7C9A08,#759D0A,#6F9F0D,#69A20F,#62A412,#5CA714,#56A917,#4FAC19,#49AE1C,#43B11E,#3DB321,#37B624,#31B826,#2CBB29,#29BB2F,#28BA36,#27B93E,#26B845,#25B74D,#24B655,#23B55C,#22B464,#21B36C,#20B374,#1FB27C,#1EB184,#1DB08C,#1CAF94,#1BAE9C,#1AADA4,#19ACAC,#1EA8B1,#23A4B6,#28A0BB,#2E9CC0,#3398C5,#3894CA,#3D91CF,#428DD4,#4889D9,#4D86DE,#5283E3,#587FE8,#5D7CED,#6279F2,#6876F7,#6D73FC,#7270FE,#786DFC,#7E6AF9,#8467F6,#8965F4,#8F62F1,#955FEF,#9B5DEC,#A15AEA,#A757E7,#AD54E5,#B352E2,#B94FDF,#BF4CDD,#C64ADA,#CC47D8,#D244D5,#D544CF,#D645C7,#D746BF,#D847B8,#D948B0,#DA49A8,#DB4AA0,#DC4B98,#DD4C91,#DE4D89,#DF4E81);" xmlns="http://www.w3.org/1999/xhtml"/>
+    </foreignObject>
+</svg>

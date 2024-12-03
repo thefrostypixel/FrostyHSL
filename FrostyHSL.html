@@ -111,20 +111,20 @@
     <body>
         <div id="box">
             <span>#</span>
-            <input id="hex" type="text" aria-label="Hex" oninput="value = value.toUpperCase().replace(/[^0-9A-F]/g, '').substring(0, 6); fromHex();" onblur="if (value.length == 3) {value = value[0].repeat(2) + value[1].repeat(2) + value[2].repeat(2);} else if (value.length < 6) {value = value.padEnd(6, '0');} fromHex();">
+            <input id="hex" type="text" aria-label="Hex" oninput="value = value.toUpperCase().replace(/[^0-9A-F]/g, '').slice(0, 6); fromHex();" onblur="if (value.length == 3) {value = value[0].repeat(2) + value[1].repeat(2) + value[2].repeat(2);} else if (value.length < 6) {value = value.padEnd(6, '0');} fromHex();" onkeypress="if (event.key == 'Enter') {this.onblur();}">
             <button aria-label="Copy" onclick="navigator.clipboard.writeText('#' + document.getElementById('hex').value);">
                 <svg viewBox="0 0 12 14">
                     <path d="M3 2q0 -1 1 -1h6q1 0 1 1v8q0 1 -1 1h-6q-1 0 -1 -1ZM9 11v1q0 1 -1 1h-6q-1 0 -1 -1v-8q0 -1 1 -1h1" fill="#0000" stroke="#FFF"/>
                 </svg>
             </button>
             <div id="nums">
-                <input id="hue-num" type="text" value="180" inputmode="numeric" aria-label="Hue" oninput="value = (value = Number(value.replace(/[^0-9]+/g, '').substring(0, 3).padEnd(1, '0'))) > 360 ? value.substring(0, 2) : value; document.getElementById('hue-slide').value = value; updateDisplay();">
-                <input id="sat-num" type="text" value="0.5" inputmode="decimal" aria-label="Saturation" oninput="let value = this.value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); this.value = Number(value) >= 1 ? '1' : (((value = value.slice(0, value.indexOf('.') + 1) + value.slice(value.indexOf('.') + 1).replace(/\./g, '')).startsWith('.') || value.length == 0 ? '0' : '') + value).slice(0, 4); document.getElementById('sat-slide').value = Number(this.value); updateDisplay();" onblur="value = Number(value);">
-                <input id="light-num" type="text" value="0.5" inputmode="decimal" aria-label="Lightness" oninput="let value = this.value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); this.value = Number(value) >= 1 ? '1' : (((value = value.slice(0, value.indexOf('.') + 1) + value.slice(value.indexOf('.') + 1).replace(/\./g, '')).startsWith('.') || value.length == 0 ? '0' : '') + value).slice(0, 4); document.getElementById('light-slide').value = Number(this.value); updateDisplay();" onblur="value = Number(value);">
+                <input id="hue-num" type="text" value="180" inputmode="numeric" aria-label="Hue" oninput="value = (value = Number(value.replace(/[^0-9]+/g, '').slice(0, 3).padEnd(1, '0'))) > 360 ? value.slice(0, 2) : value; document.getElementById('hue-slide').value = value; updateDisplay();">
+                <input id="sat-num" type="text" value="0.5" inputmode="decimal" aria-label="Saturation" oninput="let v = value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); v = v.slice(0, v.indexOf('.') + 1) + v.slice(v.indexOf('.') + 1).replace(/\./g, ''); v = (v == '' || v[0] == '.' ? '0' : '') + v; value = v[0] == '0' ? v.slice(0, 4 - (v.length == 4 && v[3] == '0')) : '1'; document.getElementById('sat-slide').value = Number(value); updateDisplay();" onblur="value = Number(value);">
+                <input id="light-num" type="text" value="0.5" inputmode="decimal" aria-label="Lightness" oninput="let v = value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); v = v.slice(0, v.indexOf('.') + 1) + v.slice(v.indexOf('.') + 1).replace(/\./g, ''); v = (v == '' || v[0] == '.' ? '0' : '') + v; value = v[0] == '0' ? v.slice(0, 4 - (v.length == 4 && v[3] == '0')) : '1'; document.getElementById('sat-slide').value = Number(value); updateDisplay();" onblur="value = Number(value);">
             </div>
-            <input id="hue-slide" type="range" min="0" max="360" value="180" step="1" aria-label="Hue" oninput="document.getElementById('hue-num').value = this.value; updateDisplay();" tabindex="-1">
-            <input id="sat-slide" type="range" min="0" max="1" value=".5" step=".01" aria-label="Saturation" oninput="document.getElementById('sat-num').value = this.value; updateDisplay();" tabindex="-1">
-            <input id="light-slide" type="range" min="0" max="1" value=".5" step=".01" aria-label="Lightness" oninput="document.getElementById('light-num').value = this.value; updateDisplay();" tabindex="-1">
+            <input id="hue-slide" type="range" min="0" max="360" value="180" step="1" aria-label="Hue" oninput="document.getElementById('hue-num').value = value; updateDisplay();" tabindex="-1">
+            <input id="sat-slide" type="range" min="0" max="1" value=".5" step=".01" aria-label="Saturation" oninput="document.getElementById('sat-num').value = value; updateDisplay();" tabindex="-1">
+            <input id="light-slide" type="range" min="0" max="1" value=".5" step=".01" aria-label="Lightness" oninput="document.getElementById('light-num').value = value; updateDisplay();" tabindex="-1">
         </div>
         <script>
             let hslToRgb = (h, s, l) => {
@@ -148,11 +148,11 @@
                 let d = max - Math.min(rgb.r, rgb.g, rgb.b);
                 let hsl = {h: max == rgb.r ? (rgb.g - rgb.b) * 60 / d + (rgb.g < rgb.b ? 360 : 0) : max == rgb.g ? (rgb.b - rgb.r) * 60 / d + 120 : (rgb.r - rgb.g) * 60 / d + 240, d: Infinity};
                 for (let h of [Math.floor(hsl.h), Math.ceil(hsl.h)]) {
-                    for (let s = 0; s < 1; s += .01) {
-                        for (let l = 0; l < 1; l += .01) {
-                            let rgb2 = hslToRgb(h, s, l);
+                    for (let s = 0; s < 101; s++) {
+                        for (let l = 0; l < 101; l++) {
+                            let rgb2 = hslToRgb(h, s / 100, l / 100);
                             if ((d = Math.sqrt((rgb.r - rgb2.r) ** 2 + (rgb.g - rgb2.g) ** 2 + (rgb.b - rgb2.b) ** 2)) < hsl.d) {
-                                hsl = {h, s: Math.round(s * 100) / 100, l: Math.round(l * 100) / 100, d};
+                                hsl = {h, s: s / 100, l: l / 100, d};
                             }
                         }
                     }

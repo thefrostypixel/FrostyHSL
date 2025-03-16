@@ -81,6 +81,7 @@
             #hue-num {
                 width: 64px;
                 padding: 12px calc((100% - 268px) / 6 + 4px) 14px calc((100% - 268px) / 6 + 4px);
+                text-align: right;
             }
             [type=range] {
                 width: calc(100% - 4px);
@@ -120,7 +121,7 @@
             <div id="nums">
                 <input id="hue-num" type="text" value="180" inputmode="numeric" aria-label="Hue" oninput="value = (value = Number(value.replace(/[^0-9]+/g, '').slice(0, 3).padEnd(1, '0'))) > 360 ? value.slice(0, 2) : value; document.getElementById('hue-slide').value = value; updateDisplay();">
                 <input id="sat-num" type="text" value="0.5" inputmode="decimal" aria-label="Saturation" oninput="let v = value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); v = v.slice(0, v.indexOf('.') + 1) + v.slice(v.indexOf('.') + 1).replace(/\./g, ''); v = (v == '' || v[0] == '.' ? '0' : '') + v; value = v[0] == '0' ? v.slice(0, 4 - (v.length == 4 && v[3] == '0')) : '1'; document.getElementById('sat-slide').value = Number(value); updateDisplay();" onblur="value = Number(value);">
-                <input id="light-num" type="text" value="0.5" inputmode="decimal" aria-label="Lightness" oninput="let v = value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); v = v.slice(0, v.indexOf('.') + 1) + v.slice(v.indexOf('.') + 1).replace(/\./g, ''); v = (v == '' || v[0] == '.' ? '0' : '') + v; value = v[0] == '0' ? v.slice(0, 4 - (v.length == 4 && v[3] == '0')) : '1'; document.getElementById('sat-slide').value = Number(value); updateDisplay();" onblur="value = Number(value);">
+                <input id="light-num" type="text" value="0.5" inputmode="decimal" aria-label="Lightness" oninput="let v = value.replace(',', '.').replace(/[^0-9.]+|^0+/g, ''); v = v.slice(0, v.indexOf('.') + 1) + v.slice(v.indexOf('.') + 1).replace(/\./g, ''); v = (v == '' || v[0] == '.' ? '0' : '') + v; value = v[0] == '0' ? v.slice(0, 4 - (v.length == 4 && v[3] == '0')) : '1'; document.getElementById('light-slide').value = Number(value); updateDisplay();" onblur="value = Number(value);">
             </div>
             <input id="hue-slide" type="range" min="0" max="360" value="180" step="1" aria-label="Hue" oninput="document.getElementById('hue-num').value = value; updateDisplay();" tabindex="-1">
             <input id="sat-slide" type="range" min="0" max="1" value=".5" step=".01" aria-label="Saturation" oninput="document.getElementById('sat-num').value = value; updateDisplay();" tabindex="-1">
